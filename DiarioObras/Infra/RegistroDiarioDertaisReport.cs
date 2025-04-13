@@ -167,8 +167,8 @@ namespace DiarioObras.Infra
                             foreach (var m in Model.Materiais)
                             {
                                 table.Cell().Element(CellStyle).Text(m.Nome ?? "N/A");
-                                //table.Cell().Element(CellStyle).Text(m.Quantidade.ToString());
-                                //table.Cell().Element(CellStyle).Text(m.Unidade ?? "un");
+                                table.Cell().Element(CellStyle).Text(m.Quantidade.ToString());
+                                table.Cell().Element(CellStyle).Text(m.Unidade ?? "un");
                             }
                         });
                     }

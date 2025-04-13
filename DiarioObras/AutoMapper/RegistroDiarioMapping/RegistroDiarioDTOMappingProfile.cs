@@ -10,21 +10,23 @@ namespace DiarioObras.AutoMapper.RegistroDiarioMapping
         {
             // Entidade → DTO
             CreateMap<RegistroDiario, RegistroDiarioDTO>()
-                .ForMember(dest => dest.CondicoesClimaticas,
-                    opt => opt.MapFrom(src => src.CondicoesClimaticas.ToString()))
-                .ForMember(dest => dest.Etapa,
-                    opt => opt.MapFrom(src => src.Etapa.ToString()));
+                .ForMember(dest => dest.Materiais, opt => opt.MapFrom(src =>
+                    src.Materiais != null
+                        ? src.Materiais.Select(m => m.Nome).ToList()
+                        : new List<string>()
+                ));
 
             // DTO → Entidade
             CreateMap<RegistroDiarioDTO, RegistroDiario>()
-                //.ForMember(dest => dest.CondicoesClimaticas,
-                //    opt => opt.MapFrom(src => Enum.Parse<CondicaoClimaticaEnum>(src.CondicoesClimaticas)))
-                //.ForMember(dest => dest.Etapa,
-                //    opt => opt.MapFrom(src => Enum.Parse<EtapaObraEnum>(src.Etapa)))
+                .ForMember(dest => dest.Materiais, opt => opt.MapFrom(src =>
+                    src.Materiais != null
+                        ? src.Materiais.Select(nome => new MaterialUtilizado { Nome = nome }).ToList()
+                        : new List<MaterialUtilizado>()
+                ))
                 .ForMember(dest => dest.Fotos, opt => opt.Ignore())
                 .ForMember(dest => dest.Documentos, opt => opt.Ignore())
-                .ForMember(dest => dest.Obra, opt => opt.Ignore())
-                .ForMember(dest => dest.Materiais, opt => opt.Ignore());
+                .ForMember(dest => dest.Obra, opt => opt.Ignore());
         }
     }
+
 }

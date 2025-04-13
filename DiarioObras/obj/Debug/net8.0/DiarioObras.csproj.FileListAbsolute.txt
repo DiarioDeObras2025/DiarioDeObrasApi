@@ -292,3 +292,4 @@ C:\Users\USER\Desktop\Diario de Obras\diarioObras\DiarioObras\DiarioObras\bin\De
 C:\Users\USER\Desktop\Diario de Obras\diarioObras\DiarioObras\DiarioObras\bin\Debug\net8.0\runtimes\win-x86\native\libstdc++-6.dll
 C:\Users\USER\Desktop\Diario de Obras\diarioObras\DiarioObras\DiarioObras\bin\Debug\net8.0\runtimes\win-x86\native\libwinpthread-1.dll
 C:\Users\USER\Desktop\Diario de Obras\diarioObras\DiarioObras\DiarioObras\bin\Debug\net8.0\runtimes\win-x86\native\qpdf.dll
+C:\Users\USER\Desktop\Diario de Obras\diarioObras\DiarioObras\DiarioObras\obj\Debug\net8.0\DiarioObras.sourcelink.json
