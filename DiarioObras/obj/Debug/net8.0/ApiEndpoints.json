@@ -421,13 +421,18 @@
   {
     "ContainingType": "DiarioObras.Controllers.RegistroDiarioController",
     "Method": "GerarRelatorioPdf",
-    "RelativePath": "RegistroDiario/relatorios/{id}/pdf",
+    "RelativePath": "RegistroDiario/relatorios/{idObra}/{idRegistroDiario}/pdf",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "idObra",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "idRegistroDiario",
         "Type": "System.Int32",
         "IsRequired": true
       }

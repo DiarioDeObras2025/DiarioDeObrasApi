@@ -106,11 +106,11 @@ public class RegistroDiarioController : ControllerBase
         return Ok(registroDiarioExcluido);
     }
 
-    [HttpGet("relatorios/{id}/pdf")]
-    public IActionResult GerarRelatorioPdf(int id)
+    [HttpGet("relatorios/{idObra}/{idRegistroDiario}/pdf")]
+    public IActionResult GerarRelatorioPdf(int idObra, int idRegistroDiario)
     {
         // Buscar o registro diário no banco
-        var relatorio = _uof.RegistroDiarioRepository.getRelatorioByObraID(1); // ou await se for async
+        var relatorio = _uof.RegistroDiarioRepository.getRelatorioByObraID(idObra, idRegistroDiario); // ou await se for async
 
         if (relatorio == null)
             return NotFound();
@@ -119,7 +119,7 @@ public class RegistroDiarioController : ControllerBase
         var document = new RegistroDiarioDertaisReport(relatorio);
         var pdf = document.GeneratePdf();
 
-        return File(pdf, "application/pdf", $"relatorio-diario-{id}.pdf");
+        return File(pdf, "application/pdf", $"relatorio-diario-{idRegistroDiario}.pdf");
     }
 
 }
