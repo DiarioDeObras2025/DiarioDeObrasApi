@@ -1,0 +1,10 @@
+﻿namespace DiarioObras.Data.Interfaces;
+
+public interface IUnitOfWork
+{
+    IObraRepository ObraRepository { get; }
+    IRegistroDiarioRepository RegistroDiarioRepository { get; }
+    IEmpresaRepository EmpresaRepository { get; }
+    void Commit();
+    Task CommitAsync();
+}

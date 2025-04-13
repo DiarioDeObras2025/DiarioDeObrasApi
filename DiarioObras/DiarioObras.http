@@ -1,0 +1,6 @@
+@DiarioObras_HostAddress = http://localhost:5239
+
+GET {{DiarioObras_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

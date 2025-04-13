@@ -1,0 +1,97 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|c:\\users\\user\\desktop\\diario de obras\\diarioobras\\diarioobras\\diarioobras\\infra\\registrodiariodertaisreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|solutionrelative:diarioobras\\infra\\registrodiariodertaisreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|c:\\users\\user\\desktop\\diario de obras\\diarioobras\\diarioobras\\diarioobras\\data\\repositories\\registrodiariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|solutionrelative:diarioobras\\data\\repositories\\registrodiariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|c:\\users\\user\\desktop\\diario de obras\\diarioobras\\diarioobras\\diarioobras\\controllers\\registrodiariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|solutionrelative:diarioobras\\controllers\\registrodiariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|c:\\users\\user\\desktop\\diario de obras\\diarioobras\\diarioobras\\diarioobras\\data\\interfaces\\iregistrodiariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|solutionrelative:diarioobras\\data\\interfaces\\iregistrodiariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RegistroDiarioRepository.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Data\\Repositories\\RegistroDiarioRepository.cs",
+              "RelativeDocumentMoniker": "DiarioObras\\Data\\Repositories\\RegistroDiarioRepository.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Data\\Repositories\\RegistroDiarioRepository.cs",
+              "RelativeToolTip": "DiarioObras\\Data\\Repositories\\RegistroDiarioRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T16:37:15.598Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IRegistroDiarioRepository.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Data\\Interfaces\\IRegistroDiarioRepository.cs",
+              "RelativeDocumentMoniker": "DiarioObras\\Data\\Interfaces\\IRegistroDiarioRepository.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Data\\Interfaces\\IRegistroDiarioRepository.cs",
+              "RelativeToolTip": "DiarioObras\\Data\\Interfaces\\IRegistroDiarioRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T16:35:17.591Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RegistroDiarioDertaisReport.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Infra\\RegistroDiarioDertaisReport.cs",
+              "RelativeDocumentMoniker": "DiarioObras\\Infra\\RegistroDiarioDertaisReport.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Infra\\RegistroDiarioDertaisReport.cs",
+              "RelativeToolTip": "DiarioObras\\Infra\\RegistroDiarioDertaisReport.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAGkAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T19:28:39.359Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RegistroDiarioController.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Controllers\\RegistroDiarioController.cs",
+              "RelativeDocumentMoniker": "DiarioObras\\Controllers\\RegistroDiarioController.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Controllers\\RegistroDiarioController.cs",
+              "RelativeToolTip": "DiarioObras\\Controllers\\RegistroDiarioController.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAYwG4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T18:17:51.424Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
