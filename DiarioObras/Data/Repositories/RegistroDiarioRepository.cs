@@ -14,6 +14,10 @@ public class RegistroDiarioRepository : Repository<RegistroDiario>, IRegistroDia
 
     public RegistroDiario? getRelatorioByObraID(int idObra, int idRegistroDiario)
     {
-        return _context.Set<RegistroDiario>().Include(o => o.Obra).Include(x => x.Materiais).FirstOrDefault(x => x.ObraId == idObra && x.Id == idRegistroDiario);
+        return _context.Set<RegistroDiario>()
+            .Include(o => o.Obra)
+            .Include(x => x.Materiais)
+            .Include(x => x.Equipe)
+            .FirstOrDefault(x => x.ObraId == idObra && x.Id == idRegistroDiario);
     }
 }

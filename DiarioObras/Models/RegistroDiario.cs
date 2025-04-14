@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DiarioObras.Models;
 
@@ -10,6 +11,7 @@ public class RegistroDiario
     {
         Fotos = new Collection<FotoRegistro>();
         Materiais = new Collection<MaterialUtilizado>();
+        Equipe = new Collection<MembroEquipe>();
     }
 
     [Key]
@@ -30,8 +32,7 @@ public class RegistroDiario
     public CondicaoClimaticaEnum CondicoesClimaticas { get; set; }
 
     // Equipe
-    public int TotalFuncionarios { get; set; }
-    public int TotalTerceirizados { get; set; }
+    public ICollection<MembroEquipe> Equipe { get; set; }
     public int HorasTrabalhadas { get; set; } = 8; // Valor padrão
 
     // Materiais e Equipamentos
@@ -42,6 +43,9 @@ public class RegistroDiario
     // Progresso
     public EtapaObraEnum Etapa { get; set; }
     public int PercentualConcluido { get; set; }
+
+    [Range(0, double.MaxValue)]
+    [Column(TypeName = "decimal(18,2)")]
     public decimal AreaExecutada { get; set; }
 
     // Ocorrências e Ambiente

@@ -7,26 +7,20 @@ public class RegistroDiarioDTO
 {
     public int Id { get; set; }
 
-
     public DateTime? Data { get; set; }
-
 
     [Required(ErrorMessage = "Houve um erro interno, contate o suporte!")]
     public int ObraId { get; set; }
 
-    [Required(ErrorMessage = "O resumo é um campo obrigátorio")]
+    [Required(ErrorMessage = "O resumo é um campo obrigatório")]
     public string Resumo { get; set; }
 
-    [Required(ErrorMessage = "O titulo do relatorio é um campo obrigátorio")]
+    [Required(ErrorMessage = "O título do relatório é um campo obrigatório")]
     public string Titulo { get; set; }
 
     public CondicaoClimaticaEnum CondicoesClimaticas { get; set; }
 
-
-    public int TotalFuncionarios { get; set; }
-
-
-    public int TotalTerceirizados { get; set; }
+    public List<MembroEquipeDTO>? Equipe { get; set; }
 
     public int HorasTrabalhadas { get; set; } = 8;
 
@@ -36,7 +30,7 @@ public class RegistroDiarioDTO
     [Range(0, 1000, ErrorMessage = "O consumo de cimento deve ser entre 0 e 1000 sacos")]
     public int ConsumoCimento { get; set; }
 
-    public List<string>? Materiais { get; set; } // Lista simplificada para o DTO
+    public List<MaterialUtilizadoDTO>? Materiais { get; set; } // Alterado para List<MaterialUtilizadoDTO>
 
     // Progresso
     public EtapaObraEnum Etapa { get; set; }
@@ -65,7 +59,6 @@ public class RegistroDiarioDTO
     public DateTime? DataAssinatura { get; set; }
 }
 
-// DTO para resposta (quando não precisamos dos arquivos)
 public class RegistroDiarioResponseDTO : RegistroDiarioDTO
 {
     public List<string>? UrlsFotos { get; set; }
