@@ -438,5 +438,15 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.RegistroDiarioController",
+    "Method": "getTotalRelatorio",
+    "RelativePath": "RegistroDiario/total",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]

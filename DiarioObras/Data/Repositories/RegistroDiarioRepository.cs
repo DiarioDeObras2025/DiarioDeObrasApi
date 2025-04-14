@@ -20,4 +20,9 @@ public class RegistroDiarioRepository : Repository<RegistroDiario>, IRegistroDia
             .Include(x => x.Equipe)
             .FirstOrDefault(x => x.ObraId == idObra && x.Id == idRegistroDiario);
     }
+
+    public int getTotalRelatorio(Expression<Func<RegistroDiario, bool>> predicate)
+    {
+        return _context.Set<RegistroDiario>().Count();
+    }
 }

@@ -121,5 +121,21 @@ public class RegistroDiarioController : ControllerBase
 
         return File(pdf, "application/pdf", $"relatorio-diario-{idRegistroDiario}.pdf");
     }
+    [HttpGet("total")]
+    public IActionResult getTotalRelatorio()
+    {
+        var empresaId = User.GetEmpresaId();
+        // Buscar o registro diário no banco
+        var relatorio = _uof.RegistroDiarioRepository.getTotalRelatorio(r => r.Obra!.EmpresaId == empresaId); // ou await se for async
+
+        if (relatorio == null)
+            return NotFound();
+
+
+        return Ok(relatorio);
+    }
+
+
+
 
 }
