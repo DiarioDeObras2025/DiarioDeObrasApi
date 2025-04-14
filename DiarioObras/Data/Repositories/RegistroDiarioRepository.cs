@@ -23,6 +23,6 @@ public class RegistroDiarioRepository : Repository<RegistroDiario>, IRegistroDia
 
     public int getTotalRelatorio(Expression<Func<RegistroDiario, bool>> predicate)
     {
-        return _context.Set<RegistroDiario>().Count();
+        return _context.Set<RegistroDiario>().Count(predicate);
     }
 }

@@ -13,7 +13,7 @@ namespace DiarioObras.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-//[Authorize]
+[Authorize]
 public class RegistroDiarioController : ControllerBase
 {
 

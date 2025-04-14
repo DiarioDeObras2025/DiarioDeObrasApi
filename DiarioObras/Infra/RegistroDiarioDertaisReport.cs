@@ -289,7 +289,7 @@ namespace DiarioObras.Infra
                         // Assinatura do Engenheiro/Responsável
                         table.Cell().Column(column =>
                         {
-                            column.Item().AlignCenter().Text("Engenheiro Responsável").Bold();
+                            column.Item().AlignCenter().Text("Responsável").Bold();
                             column.Item().PaddingTop(25).AlignCenter().Text("_________________________");
                             column.Item().AlignCenter().Text(Model.Obra?.EngenheiroResponsavel ?? "Nome do Engenheiro");
                             column.Item().AlignCenter().Text("CREA: _______________");
