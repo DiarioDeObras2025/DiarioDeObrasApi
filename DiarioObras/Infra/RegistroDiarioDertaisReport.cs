@@ -93,29 +93,62 @@ namespace DiarioObras.Infra
                     // SEÇÃO 3: EQUIPE
                     AddSectionHeader(col, "3. EQUIPE");
 
+                    // Tabela de resumo
                     col.Item().Table(table =>
                     {
                         table.ColumnsDefinition(columns =>
                         {
                             columns.RelativeColumn();
                             columns.RelativeColumn();
-                            columns.RelativeColumn();
-                            columns.RelativeColumn();
                         });
 
                         table.Header(header =>
                         {
-                            header.Cell().Element(CellStyle).Text("Funcionários").Bold();
-                            header.Cell().Element(CellStyle).Text("Terceirizados").Bold();
-                            header.Cell().Element(CellStyle).Text("Horas Trabalhadas").Bold();
-                            header.Cell().Element(CellStyle).Text("Total Pessoas").Bold();
+                            header.Cell().Element(CellStyle).Text("Total Funcionários").Bold();
+                            header.Cell().Element(CellStyle).Text("Total Terceirizados").Bold();
                         });
 
-                        table.Cell().Element(CellStyle).Text(Model.TotalFuncionarios.ToString());
-                        table.Cell().Element(CellStyle).Text(Model.TotalTerceirizados.ToString());
-                        table.Cell().Element(CellStyle).Text($"{Model.HorasTrabalhadas} h");
-                        table.Cell().Element(CellStyle).Text($"{(Model.TotalFuncionarios + Model.TotalTerceirizados)}");
+                        table.Cell().Element(CellStyle).Text(Model.Equipe?.Count(m => !m.Terceirizado) ?? 0);
+                        table.Cell().Element(CellStyle).Text(Model.Equipe?.Count(m => m.Terceirizado) ?? 0);
                     });
+
+                    // Tabela detalhada da equipe
+                    if (Model.Equipe.Any())
+                    {
+                        col.Spacing(10);
+                        col.Item().Text("Detalhamento da Equipe");
+
+                        col.Item().Table(table =>
+                        {
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.RelativeColumn(2); // Nome
+                                columns.RelativeColumn(2); // Cargo
+                                columns.RelativeColumn();  // Tipo
+                                columns.RelativeColumn(3); // Observações
+                            });
+
+                            table.Header(header =>
+                            {
+                                header.Cell().Element(CellStyle).Text("Nome").Bold();
+                                header.Cell().Element(CellStyle).Text("Cargo").Bold();
+                                header.Cell().Element(CellStyle).Text("Tipo").Bold();
+                                header.Cell().Element(CellStyle).Text("Observações").Bold();
+                            });
+
+                            foreach (var membro in Model.Equipe)
+                            {
+                                table.Cell().Element(CellStyle).Text(membro.Nome);
+                                table.Cell().Element(CellStyle).Text(membro.Cargo);
+                                table.Cell().Element(CellStyle).Text(membro.Terceirizado ? "Terceirizado" : "Próprio");
+                                table.Cell().Element(CellStyle).Text(membro.Observacao ?? "-");
+                            }
+                        });
+                    }
+                    else
+                    {
+                        col.Item().Text("Nenhum membro da equipe registrado");
+                    }
 
                     // SEÇÃO 4: MATERIAIS E EQUIPAMENTOS
                     AddSectionHeader(col, "4. MATERIAIS E EQUIPAMENTOS");
