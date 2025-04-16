@@ -87,7 +87,9 @@ namespace DiarioObras.Controllers
                 {
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
                     RefreshToken = refreshToken,
-                    Expiration = token.ValidTo
+                    Expiration = token.ValidTo,
+                    NomeUser = user.Nome,
+                    Email = user.Email
                 });
             }
             return Unauthorized();

@@ -9,6 +9,10 @@ public class Empresa
     [Required]
     [StringLength(100)]
     public string Nome { get; set; }
+    [Required]
+    public string Telefone { get; set; }
+    [Required]
+    public string Responsavel { get; set; }
 
     public DateTime CriadoEm { get; set; } = DateTime.UtcNow;
 
