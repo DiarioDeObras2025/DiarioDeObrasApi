@@ -38,6 +38,19 @@ public class RegistroDiarioController : ControllerBase
         return Ok(registroDiarioDTOs);
     }
 
+    [HttpGet("get-relatorio-from-empresa")]
+    public ActionResult<IEnumerable<RegistroDiarioResumoDTO>> GetAllWithObraByEmpresa()
+    {
+        var empresaId = User.GetEmpresaId();
+        var registroDiarios = _uof.RegistroDiarioRepository.GetAllWithObraByEmpresa(empresaId);
+        if (registroDiarios is null)
+            return NotFound("Obras não encontrada!");
+
+        var registroDiarioDTOs = _mapper.Map<IEnumerable<RegistroDiarioResumoDTO>>(registroDiarios);
+        return Ok(registroDiarioDTOs);
+    }
+
+
 
     [HttpGet("{id:int}", Name = "ObterRelatorio")]
     public ActionResult<RegistroDiarioDTO> GetById(int id)
@@ -81,9 +94,9 @@ public class RegistroDiarioController : ControllerBase
         if (registroExistente is null)
             return NotFound();
 
-        var registroDiario = _mapper.Map<RegistroDiario>(registroDiarioDTO);
+        _mapper.Map(registroDiarioDTO, registroExistente);
 
-        var registroAtualizado = _uof.RegistroDiarioRepository.Update(registroDiario);
+        var registroAtualizado = _uof.RegistroDiarioRepository.Update(registroExistente);
         _uof.Commit();
 
         var registroDtoAtualizada = _mapper.Map<RegistroDiarioDTO>(registroAtualizado);

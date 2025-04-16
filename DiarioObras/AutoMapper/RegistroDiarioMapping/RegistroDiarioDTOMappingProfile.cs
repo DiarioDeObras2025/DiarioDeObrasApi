@@ -20,6 +20,10 @@ namespace DiarioObras.AutoMapper.RegistroDiarioMapping
             // Mapeamento de MaterialUtilizadoDTO para MaterialUtilizado
             CreateMap<MembroEquipeDTO, MembroEquipe>();
 
+            CreateMap<RegistroDiario, RegistroDiarioResumoDTO>()
+             .ForMember(dest => dest.NomeObra, opt => opt.MapFrom(src => src.Obra.Nome));
+
+
             // Entidade → DTO
             CreateMap<RegistroDiario, RegistroDiarioDTO>()
                  .ForMember(dest => dest.Equipe, opt => opt.MapFrom(src => src.Equipe))

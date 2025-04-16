@@ -106,15 +106,15 @@ public class ObraController : ControllerBase
         if (obraExistente is null)
             return NotFound();
 
-        var obra = _mapper.Map<Obra>(obraDto);
-        obra.EmpresaId = empresaId;
+        _mapper.Map(obraDto, obraExistente);
 
-        var obraAtualizado = _uof.ObraRepository.Update(obra);
+        var obraAtualizada = _uof.ObraRepository.Update(obraExistente);
         _uof.Commit();
 
-        var obraDtoAtualizada = _mapper.Map<ObraDTO>(obraAtualizado);
+        var obraDtoAtualizada = _mapper.Map<ObraDTO>(obraAtualizada);
         return Ok(obraDtoAtualizada);
     }
+
 
     [HttpDelete("{id:int}")]
     public ActionResult<ObraDTO> Delete(int id)
