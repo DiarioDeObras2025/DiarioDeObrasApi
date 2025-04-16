@@ -28,6 +28,8 @@ public class ObraDTO
     [Required]
     [StringLength(80)]
     public string? EngenheiroResponsavel { get; set; }
+
+    [Required(ErrorMessage = "O campo Status é obrigatório.")]
     public string Status { get; set; }
     public DateTime DataCriacao { get; set; } = DateTime.UtcNow;
     public DateTime? DataAtualizacao { get; set; }
