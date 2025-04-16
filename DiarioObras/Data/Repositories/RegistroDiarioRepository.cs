@@ -25,4 +25,14 @@ public class RegistroDiarioRepository : Repository<RegistroDiario>, IRegistroDia
     {
         return _context.Set<RegistroDiario>().Count(predicate);
     }
+    public IEnumerable<RegistroDiario> GetAllWithObraByEmpresa(int empresaId)
+    {
+        return _context.Set<RegistroDiario>()
+            .Include(r => r.Obra)
+            .Where(r => r.Obra.EmpresaId == empresaId)
+            .AsNoTracking()
+            .OrderByDescending(r => r.Data)
+            .ToList();
+    }
+
 }
