@@ -218,20 +218,30 @@ namespace DiarioObras.Infra
                         });
                     }
 
-                    // SEÇÃO 6: REGISTRO FOTOGRÁFICO
+                    // SEÇÃO 6: REGISTRO FOTOGRÁFICO - VERSÃO ATUALIZADA
                     AddSectionHeader(col, "6. REGISTRO FOTOGRÁFICO");
 
                     if (Model.Fotos != null && Model.Fotos.Any())
                     {
-                        col.Item().Grid(grid =>
-                        {
-                            grid.Columns(3);
-                            grid.VerticalSpacing(5);
-                            grid.HorizontalSpacing(5);
+                        // Calcular quantas linhas serão necessárias (3 fotos por linha)
+                        int rowsNeeded = (int)Math.Ceiling(Model.Fotos.Count / 3.0);
 
-                            foreach (var foto in Model.Fotos)
+                        col.Item().Table(table =>
+                        {
+                            // Definir 3 colunas de largura igual
+                            table.ColumnsDefinition(columns =>
                             {
-                                grid.Item().Border(1).Padding(2).Height(100).Image(foto.CaminhoArquivo);
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                            });
+
+                            for (int row = 0; row < rowsNeeded; row++)
+                            {
+                                // Adicionar uma linha para cada conjunto de 3 fotos
+                                table.Cell().Row((uint)row + 1).Column(1).Element(c => AddFotoElement(c, Model.Fotos.ElementAtOrDefault(row * 3)));
+                                table.Cell().Row((uint)row + 1).Column(2).Element(c => AddFotoElement(c, Model.Fotos.ElementAtOrDefault(row * 3 + 1)));
+                                table.Cell().Row((uint)row + 1).Column(3).Element(c => AddFotoElement(c, Model.Fotos.ElementAtOrDefault(row * 3 + 2)));
                             }
                         });
                     }
@@ -352,6 +362,67 @@ namespace DiarioObras.Infra
                            .FirstOrDefault() as DisplayAttribute;
 
             return attribute?.Name ?? etapa.ToString();
+        }
+
+        private byte[] LoadImage(string imagePath)
+        {
+            // Se o caminho for uma URL ou caminho absoluto/relativo do sistema de arquivos
+            if (File.Exists(imagePath))
+            {
+                return File.ReadAllBytes(imagePath);
+            }
+
+            // Se o caminho for uma URI (http/https)
+            if (Uri.TryCreate(imagePath, UriKind.Absolute, out var uri) &&
+                (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps))
+            {
+                using var httpClient = new HttpClient();
+                return httpClient.GetByteArrayAsync(uri).Result;
+            }
+
+            // Se o caminho for um base64 string (data:image)
+            if (imagePath.StartsWith("data:image"))
+            {
+                var base64Data = imagePath.Split(',')[1];
+                return Convert.FromBase64String(base64Data);
+            }
+
+            throw new FileNotFoundException("Imagem não encontrada ou formato inválido");
+        }
+
+        private void AddFotoElement(IContainer container, FotoRegistro? foto)
+        {
+            if (foto == null)
+            {
+                return; // Não faz nada se não houver foto para esta posição
+            }
+
+            container.Padding(5).MinHeight(180).Column(column =>
+            {
+                try
+                {
+                    column.Item()
+                        .Background(Colors.Grey.Lighten4)
+                        .Padding(2)
+                        .Image(LoadImage(foto.CaminhoArquivo), ImageScaling.FitArea);
+                }
+                catch
+                {
+                    column.Item().Background(Colors.Grey.Lighten3).Padding(5)
+                        .AlignCenter().Text("Imagem não disponível").Italic();
+                }
+
+                // Legenda
+                if (!string.IsNullOrWhiteSpace(foto.Descricao))
+                {
+                    column.Item().PaddingTop(5).Text(foto.Descricao).FontSize(7);
+                }
+
+                if (!string.IsNullOrWhiteSpace(foto.Categoria))
+                {
+                    column.Item().Text($"Categoria: {foto.Categoria}").FontSize(6).Italic();
+                }
+            });
         }
     }
 }

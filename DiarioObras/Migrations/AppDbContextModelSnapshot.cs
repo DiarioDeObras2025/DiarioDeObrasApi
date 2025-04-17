@@ -163,6 +163,9 @@ namespace DiarioObras.Migrations
                     b.Property<string>("CaminhoArquivo")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Categoria")
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("DataUpload")
                         .HasColumnType("datetime(6)");
 
@@ -172,14 +175,10 @@ namespace DiarioObras.Migrations
                         .HasColumnType("varchar(80)");
 
                     b.Property<string>("Localizacao")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
                     b.Property<int>("RegistroDiarioId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Tipo")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

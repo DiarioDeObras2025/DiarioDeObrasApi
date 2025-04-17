@@ -3,9 +3,6 @@ using DiarioObras.Data.Interfaces;
 using DiarioObras.Data.Repositories;
 using DiarioObras.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 public class RegistroDiarioRepository : Repository<RegistroDiario>, IRegistroDiarioRepository
@@ -18,21 +15,22 @@ public class RegistroDiarioRepository : Repository<RegistroDiario>, IRegistroDia
             .Include(o => o.Obra)
             .Include(x => x.Materiais)
             .Include(x => x.Equipe)
+            .Include(f => f.Fotos)
             .FirstOrDefault(x => x.ObraId == idObra && x.Id == idRegistroDiario);
     }
 
-    public int getTotalRelatorio(Expression<Func<RegistroDiario, bool>> predicate)
+    public async Task<int> getTotalRelatorioAsync(Expression<Func<RegistroDiario, bool>> predicate)
     {
-        return _context.Set<RegistroDiario>().Count(predicate);
+        return await _context.Set<RegistroDiario>().CountAsync(predicate);
     }
-    public IEnumerable<RegistroDiario> GetAllWithObraByEmpresa(int empresaId)
+
+    public async Task<IEnumerable<RegistroDiario>> GetAllWithObraByEmpresaAsync(int empresaId)
     {
-        return _context.Set<RegistroDiario>()
+        return await _context.Set<RegistroDiario>()
             .Include(r => r.Obra)
             .Where(r => r.Obra.EmpresaId == empresaId)
             .AsNoTracking()
             .OrderByDescending(r => r.Data)
-            .ToList();
+            .ToListAsync();
     }
-
 }

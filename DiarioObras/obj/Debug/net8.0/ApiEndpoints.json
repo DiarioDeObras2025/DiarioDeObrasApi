@@ -122,6 +122,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "DiarioObras.Controllers.FotoRegistroController",
+    "Method": "UploadFotos",
+    "RelativePath": "FotoRegistro/{registroDiarioId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registroDiarioId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "arquivos",
+        "Type": "System.Collections.Generic.List\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "metadadosJson",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DiarioObras.Controllers.ObraController",
     "Method": "GetAll",
     "RelativePath": "Obra",

@@ -15,12 +15,17 @@ public class Repository<T> : IRepository<T> where T : class
         _context = context;
     }
 
-    public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate)
+    public virtual async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate)
     {
-        return _context.Set<T>().Where(predicate).AsNoTracking().ToList();
+        return await _context.Set<T>()
+                             .Where(predicate)
+                             .AsNoTracking()
+                             .ToListAsync();
     }
 
-    public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+    public virtual async Task<IEnumerable<T>> GetAllAsync(
+       Expression<Func<T, bool>> predicate,
+       params Expression<Func<T, object>>[] includeProperties)
     {
         IQueryable<T> query = _context.Set<T>();
 
@@ -29,32 +34,32 @@ public class Repository<T> : IRepository<T> where T : class
             query = query.Include(includeProperty);
         }
 
-        return query.Where(predicate).AsNoTracking().ToList();
+        return await query
+            .Where(predicate)
+            .AsNoTracking()
+            .ToListAsync();
+    }
+    public virtual async Task<T?> GetByIdAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await _context.Set<T>()
+                             .FirstOrDefaultAsync(predicate);
     }
 
-    public T? GetById(Expression<Func<T, bool>> predicate)
+    public async Task<T> CreateAsync(T entity)
     {
-        return _context.Set<T>().FirstOrDefault(predicate);
-    }
-
-    public T Create(T entity)
-    {
-        _context.Set<T>().Add(entity);
-        //_context.SaveChanges();
+        await _context.Set<T>().AddAsync(entity);
         return entity;
     }
 
     public T Update(T entity)
     {
         _context.Set<T>().Update(entity);
-        //_context.SaveChanges();
         return entity;
     }
 
     public T Delete(T entity)
     {
         _context.Set<T>().Remove(entity);
-        //_context.SaveChanges();
         return entity;
     }
 }

@@ -8,6 +8,7 @@ public class UnitOfWork : IUnitOfWork
     private IObraRepository? _obraRepository;
     private IRegistroDiarioRepository? _registroDiarioRepository;
     private IEmpresaRepository? _empresaRepository;
+    private IFotoRegistroRepository? _fotoRegistroRepository;
     public AppDbContext _context;
 
     public UnitOfWork(AppDbContext context)
@@ -20,6 +21,14 @@ public class UnitOfWork : IUnitOfWork
         { 
             return _obraRepository = _obraRepository ?? new ObraRepository(_context);
         } 
+    }
+
+    public IFotoRegistroRepository FotoRegistroRepository
+    {
+        get
+        {
+            return _fotoRegistroRepository = _fotoRegistroRepository ?? new FotoRegistroRepository(_context);
+        }
     }
 
     public IRegistroDiarioRepository RegistroDiarioRepository

@@ -14,28 +14,8 @@ public class FotoRegistro
     public int RegistroDiarioId { get; set; }
     public RegistroDiario? RegistroDiario { get; set; }
 
-    public TipoEnum Tipo { get; set; }
+    public string? Categoria { get; set; }
 
-    [Required]
     [StringLength(50)]
     public string? Localizacao { get; set; }
-}
-
-public enum TipoEnum
-{
-    Geral,
-    Progresso,
-    Problema,
-    Seguranca,
-    Material,
-    Equipamento,
-    Maquinario,
-    Estrutural,
-    Acabamento,
-    Reuniao,
-    Inspecao,
-    Documentacao,
-    Emergencia,
-    AntesDepois,
-    ClimaTempo
 }

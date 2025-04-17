@@ -6,6 +6,7 @@ using DiarioObras.Data.Context;
 using DiarioObras.Data.Interfaces;
 using DiarioObras.Data.Repositories;
 using DiarioObras.Models;
+using DiarioObras.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -117,6 +118,9 @@ builder.Services.AddCors(options =>
                   .AllowAnyHeader();
         });
 });
+
+builder.Services.Configure<AwsS3Settings>(builder.Configuration.GetSection("AWS"));
+builder.Services.AddScoped<S3Service>();
 
 var app = builder.Build();
 

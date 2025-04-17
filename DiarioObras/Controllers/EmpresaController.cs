@@ -2,7 +2,6 @@
 using AutoMapper;
 using DiarioObras.Data.Interfaces;
 using DiarioObras.DTOs.EmpresaDTOs;
-using DiarioObras.DTOs.ObraDTOs;
 using DiarioObras.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -26,6 +25,7 @@ namespace DiarioObras.Controllers
             _tokenService = tokenService;
             _configuration = configuration;
         }
+
         [HttpPost]
         [Route("create-empresa")]
         public async Task<IActionResult> CreateEmpresa([FromBody] CreateEmpresaDTO empresaDto)
@@ -35,17 +35,20 @@ namespace DiarioObras.Controllers
 
             try
             {
+                // Mapeia o DTO para a entidade Empresa
                 var novaEmpresa = _mapper.Map<Empresa>(empresaDto);
-                _uof.EmpresaRepository.Create(novaEmpresa);
+
+                // Chama o repositório para criar a nova empresa de forma assíncrona
+                novaEmpresa = await _uof.EmpresaRepository.CreateAsync(novaEmpresa);
                 await _uof.CommitAsync();
 
-                // Usar int (ID) em vez de Guid
+                // Criação do token para a empresa registrada
                 var authClaims = new List<Claim>
-        {
-            new Claim("empresaId", novaEmpresa.Id.ToString()), // Id é int
-            new Claim("purpose", "user_registration"),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
+                {
+                    new Claim("empresaId", novaEmpresa.Id.ToString()), // Id é int
+                    new Claim("purpose", "user_registration"),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
 
                 var token = _tokenService.GenerateAccessToken(authClaims, _configuration);
 
@@ -58,6 +61,7 @@ namespace DiarioObras.Controllers
             }
             catch (Exception ex)
             {
+                // Retorna erro caso algo dê errado
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     new { Message = $"Erro ao criar empresa: {ex.Message}" });
             }
