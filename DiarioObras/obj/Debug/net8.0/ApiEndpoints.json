@@ -466,6 +466,27 @@
   },
   {
     "ContainingType": "DiarioObras.Controllers.RegistroDiarioController",
+    "Method": "DuplicarRelatorio",
+    "RelativePath": "RegistroDiario/obra/{idObra}/registro/{idRegistro}/duplicar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idObra",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "idRegistro",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.RegistroDiarioController",
     "Method": "GerarRelatorioPdf",
     "RelativePath": "RegistroDiario/relatorios/{idObra}/{idRegistroDiario}/pdf",
     "HttpMethod": "GET",

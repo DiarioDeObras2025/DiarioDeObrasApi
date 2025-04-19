@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using DiarioObras.Configurations;
 using DiarioObras.Data.Interfaces;
+using DiarioObras.Data.Repositories;
 using DiarioObras.DTOs.ObraDTOs;
 using DiarioObras.DTOs.RegistroDiarioDTOs;
 using DiarioObras.Infra;
 using DiarioObras.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QuestPDF.Fluent;
 
 namespace DiarioObras.Controllers;
@@ -143,4 +145,98 @@ public class RegistroDiarioController : ControllerBase
 
         return Ok(total);
     }
+
+
+    [HttpPost("obra/{idObra}/registro/{idRegistro}/duplicar")]
+    public async Task<IActionResult> DuplicarRelatorio(int idObra, int idRegistro)
+    {
+        var registroOriginal = _uof.RegistroDiarioRepository.getRelatorioByObraID(idObra, idRegistro);
+
+        if (registroOriginal is null)
+            return NotFound("Registro não encontrado.");
+
+        var registroCopia = new RegistroDiario
+        {
+            Data = DateTime.UtcNow,
+            Titulo = registroOriginal.Titulo,
+            ObraId = registroOriginal.ObraId,
+            Resumo = registroOriginal.Resumo,
+            CondicoesClimaticas = registroOriginal.CondicoesClimaticas,
+            HorasTrabalhadas = registroOriginal.HorasTrabalhadas,
+            Equipamentos = registroOriginal.Equipamentos,
+            ConsumoCimento = registroOriginal.ConsumoCimento,
+            Etapa = registroOriginal.Etapa,
+            PercentualConcluido = registroOriginal.PercentualConcluido,
+            AreaExecutada = registroOriginal.AreaExecutada,
+            Ocorrencias = registroOriginal.Ocorrencias,
+            Temperatura = registroOriginal.Temperatura,
+            Precipitacao = registroOriginal.Precipitacao,
+            AssinaturaResponsavel = null,
+            DataAssinatura = null,
+            DataCriacao = DateTime.UtcNow,
+            Equipe = new List<MembroEquipe>(),
+            Materiais = new List<MaterialUtilizado>()
+        };
+
+        // Duplicar Equipe
+        foreach (var membro in registroOriginal.Equipe)
+        {
+            registroCopia.Equipe.Add(new MembroEquipe
+            {
+                Nome = membro.Nome,
+                Cargo = membro.Cargo,
+                Observacao = membro.Observacao,
+                Terceirizado = membro.Terceirizado,
+            });
+        }
+
+        // Duplicar Materiais
+        foreach (var mat in registroOriginal.Materiais)
+        {
+            registroCopia.Materiais.Add(new MaterialUtilizado
+            {
+                Nome = mat.Nome,
+                Quantidade = mat.Quantidade,
+                Unidade = mat.Unidade
+            });
+        }
+
+        await _uof.RegistroDiarioRepository.CreateAsync(registroCopia);
+        await _uof.CommitAsync();
+
+        var dto = new RegistroDiarioDTO
+        {
+            Id = registroCopia.Id,
+            Titulo = registroCopia.Titulo,
+            Resumo = registroCopia.Resumo,
+            Data = registroCopia.Data,
+            ObraId = registroCopia.ObraId,
+            HorasTrabalhadas = registroCopia.HorasTrabalhadas,
+            Equipamentos = registroCopia.Equipamentos,
+            ConsumoCimento = registroCopia.ConsumoCimento,
+            Etapa = registroCopia.Etapa,
+            PercentualConcluido = registroCopia.PercentualConcluido,
+            AreaExecutada = registroCopia.AreaExecutada,
+            Ocorrencias = registroCopia.Ocorrencias,
+            Temperatura = registroCopia.Temperatura,
+            Precipitacao = registroCopia.Precipitacao,
+            Equipe = registroCopia.Equipe.Select(e => new MembroEquipeDTO
+            {
+                Nome = e.Nome,
+                Cargo = e.Cargo,
+                Observacao = e.Observacao,
+                Terceirizado = e.Terceirizado
+            }).ToList(),
+            Materiais = registroCopia.Materiais.Select(m => new MaterialUtilizadoDTO
+            {
+                Nome = m.Nome,
+                Quantidade = m.Quantidade,
+                Unidade = m.Unidade
+            }).ToList()
+        };
+
+        return Ok(dto);
+    }
+
+
 }
