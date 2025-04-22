@@ -16,6 +16,7 @@ public class RegistroDiarioRepository : Repository<RegistroDiario>, IRegistroDia
             .Include(x => x.Materiais)
             .Include(x => x.Equipe)
             .Include(f => f.Fotos)
+            .Include(f => f.Atividades)
             .FirstOrDefault(x => x.ObraId == idObra && x.Id == idRegistroDiario);
     }
 

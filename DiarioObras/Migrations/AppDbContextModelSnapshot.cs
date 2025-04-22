@@ -97,6 +97,26 @@ namespace DiarioObras.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("DiarioObras.Models.AtividadeRegistro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("RegistroDiarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegistroDiarioId");
+
+                    b.ToTable("AtividadeRegistro");
+                });
+
             modelBuilder.Entity("DiarioObras.Models.DocumentoRegistro", b =>
                 {
                     b.Property<int>("Id")
@@ -352,11 +372,6 @@ namespace DiarioObras.Migrations
                     b.Property<decimal?>("Precipitacao")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<string>("Resumo")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
-
                     b.Property<decimal?>("Temperatura")
                         .HasColumnType("decimal(65,30)");
 
@@ -514,6 +529,17 @@ namespace DiarioObras.Migrations
                     b.Navigation("Empresa");
                 });
 
+            modelBuilder.Entity("DiarioObras.Models.AtividadeRegistro", b =>
+                {
+                    b.HasOne("DiarioObras.Models.RegistroDiario", "RegistroDiario")
+                        .WithMany("Atividades")
+                        .HasForeignKey("RegistroDiarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RegistroDiario");
+                });
+
             modelBuilder.Entity("DiarioObras.Models.DocumentoRegistro", b =>
                 {
                     b.HasOne("DiarioObras.Models.RegistroDiario", "RegistroDiario")
@@ -645,6 +671,8 @@ namespace DiarioObras.Migrations
 
             modelBuilder.Entity("DiarioObras.Models.RegistroDiario", b =>
                 {
+                    b.Navigation("Atividades");
+
                     b.Navigation("Documentos");
 
                     b.Navigation("Equipe");

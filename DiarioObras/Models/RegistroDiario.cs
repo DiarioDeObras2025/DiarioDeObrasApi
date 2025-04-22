@@ -24,10 +24,9 @@ public class RegistroDiario
 
     public int ObraId { get; set; }
     public Obra? Obra { get; set; }
+    //public string Resumo { get; set; }
 
-    [Required]
-    [StringLength(300)]
-    public string Resumo { get; set; }
+    public ICollection<AtividadeRegistro> Atividades { get; set; }
 
     public CondicaoClimaticaEnum CondicoesClimaticas { get; set; }
 
@@ -35,8 +34,6 @@ public class RegistroDiario
     public ICollection<MembroEquipe> Equipe { get; set; }
     public int HorasTrabalhadas { get; set; } = 8; // Valor padrão
 
-    // Materiais e Equipamentos
-    public string? Equipamentos { get; set; }
     public int ConsumoCimento { get; set; }
     public ICollection<MaterialUtilizado> Materiais { get; set; }
 

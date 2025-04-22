@@ -24,22 +24,16 @@ namespace DiarioObras.Infra
                 page.Size(PageSizes.A4);
                 page.DefaultTextStyle(x => x.FontSize(8).FontFamily("Helvetica"));
 
-                // Cabeçalho
                 page.Header().Column(header =>
                 {
                     header.Item().AlignCenter().Text(text =>
                     {
                         text.Span("RELATÓRIO DIÁRIO DE OBRA").Bold().FontSize(12);
-                        text.EmptyLine();
-                        text.Span($"Obra: {Model.Obra?.Nome ?? "N/A"}").FontSize(9);
-                        text.EmptyLine();
-                        text.Span($"Data: {Model.Data:dd/MM/yyyy}").FontSize(9);
                     });
 
                     header.Item().PaddingBottom(5).BorderBottom(1).BorderColor(Colors.Grey.Medium);
                 });
 
-                // Conteúdo
                 page.Content().Column(col =>
                 {
                     col.Spacing(8);
@@ -57,14 +51,12 @@ namespace DiarioObras.Infra
                             columns.RelativeColumn();
                         });
 
-                        AddTableRow(table, "Nome da Obra", Model.Obra?.Nome);
+                        AddTableRow(table, "Contratante", Model.Obra?.Nome);
                         AddTableRow(table, "Endereço", Model.Obra?.Endereco);
-                        AddTableRow(table, "Cliente", Model.Obra?.Cliente);
+                        AddTableRow(table, "Contratada", Model.Obra?.EngenheiroResponsavel);
                         AddTableRow(table, "Contrato", Model.Obra?.NumeroContrato);
-                        AddTableRow(table, "Eng. Responsável", Model.Obra?.EngenheiroResponsavel);
                         AddTableRow(table, "Status", Model.Obra?.Status.ToString());
                         AddTableRow(table, "Data Início", Model.Obra?.DataInicio.ToString("dd/MM/yyyy"));
-                        AddTableRow(table, "Previsão Término", Model.Obra?.DataTerminoPrevista?.ToString("dd/MM/yyyy") ?? "N/A");
                     });
 
                     // SEÇÃO 2: INFORMAÇÕES DO DIA
@@ -81,7 +73,6 @@ namespace DiarioObras.Infra
                         });
 
                         AddTableRow(table, "Título", Model.Titulo);
-                        AddTableRow(table, "Resumo", Model.Resumo);
                         AddTableRow(table, "Etapa Atual", GetEtapaDisplayName(Model.Etapa));
                         AddTableRow(table, "% Concluído", $"{Model.PercentualConcluido}%");
                         AddTableRow(table, "Área Executada", $"{Model.AreaExecutada} m²");
@@ -90,42 +81,43 @@ namespace DiarioObras.Infra
                         AddTableRow(table, "Precipitação", Model.Precipitacao.HasValue ? $"{Model.Precipitacao} mm" : "N/A");
                     });
 
-                    // SEÇÃO 3: EQUIPE
-                    AddSectionHeader(col, "3. EQUIPE");
+                    // SEÇÃO 3: ATIVIDADES
+                    AddSectionHeader(col, "3. ATIVIDADES");
 
-                    // Tabela de resumo
-                    col.Item().Table(table =>
+                    if (Model.Atividades != null && Model.Atividades.Any())
                     {
-                        table.ColumnsDefinition(columns =>
+                        col.Item().Table(table =>
                         {
-                            columns.RelativeColumn();
-                            columns.RelativeColumn();
-                        });
+                            table.ColumnsDefinition(columns => columns.RelativeColumn());
 
-                        table.Header(header =>
+                            foreach (var atividade in Model.Atividades)
+                            {
+                                table.Cell().Element(CellStyle).Text($"• {atividade.Descricao?.Trim()}");
+                            }
+                        });
+                    }
+                    else
+                    {
+                        col.Item().Table(table =>
                         {
-                            header.Cell().Element(CellStyle).Text("Total Funcionários").Bold();
-                            header.Cell().Element(CellStyle).Text("Total Terceirizados").Bold();
+                            table.ColumnsDefinition(columns => columns.RelativeColumn());
+                            table.Cell().Element(CellStyle).Text("Nenhuma atividade registrada.").Italic();
                         });
+                    }
 
-                        table.Cell().Element(CellStyle).Text(Model.Equipe?.Count(m => !m.Terceirizado) ?? 0);
-                        table.Cell().Element(CellStyle).Text(Model.Equipe?.Count(m => m.Terceirizado) ?? 0);
-                    });
+                    // SEÇÃO 3: MÃO DE OBRA
+                    AddSectionHeader(col, "3. MÃO DE OBRA");
 
-                    // Tabela detalhada da equipe
                     if (Model.Equipe.Any())
                     {
-                        col.Spacing(10);
-                        col.Item().Text("Detalhamento da Equipe");
-
                         col.Item().Table(table =>
                         {
                             table.ColumnsDefinition(columns =>
                             {
-                                columns.RelativeColumn(2); // Nome
-                                columns.RelativeColumn(2); // Cargo
-                                columns.RelativeColumn();  // Tipo
-                                columns.RelativeColumn(3); // Observações
+                                columns.RelativeColumn(2);
+                                columns.RelativeColumn(2);
+                                columns.RelativeColumn();
+                                columns.RelativeColumn(3);
                             });
 
                             table.Header(header =>
@@ -144,6 +136,24 @@ namespace DiarioObras.Infra
                                 table.Cell().Element(CellStyle).Text(membro.Observacao ?? "-");
                             }
                         });
+
+                        col.Item().Table(table =>
+                        {
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                            });
+
+                            table.Header(header =>
+                            {
+                                header.Cell().Element(CellStyle).Text("Total Funcionários").Bold();
+                                header.Cell().Element(CellStyle).Text("Total Terceirizados").Bold();
+                            });
+
+                            table.Cell().Element(CellStyle).Text(Model.Equipe?.Count(m => !m.Terceirizado) ?? 0);
+                            table.Cell().Element(CellStyle).Text(Model.Equipe?.Count(m => m.Terceirizado) ?? 0);
+                        });
                     }
                     else
                     {
@@ -153,15 +163,6 @@ namespace DiarioObras.Infra
                     // SEÇÃO 4: MATERIAIS E EQUIPAMENTOS
                     AddSectionHeader(col, "4. MATERIAIS E EQUIPAMENTOS");
 
-                    // Equipamentos
-                    col.Item().Table(table =>
-                    {
-                        table.ColumnsDefinition(columns => columns.RelativeColumn());
-                        table.Cell().Element(CellStyle).Text("Equipamentos Utilizados:").Bold();
-                        table.Cell().Element(CellStyle).Text(Model.Equipamentos ?? "Nenhum equipamento registrado");
-                    });
-
-                    // Consumo de Cimento
                     if (Model.ConsumoCimento > 0)
                     {
                         col.Item().Table(table =>
@@ -172,15 +173,8 @@ namespace DiarioObras.Infra
                         });
                     }
 
-                    // Materiais Utilizados
                     if (Model.Materiais.Any())
                     {
-                        col.Item().Table(table =>
-                        {
-                            table.ColumnsDefinition(columns => columns.RelativeColumn());
-                            table.Cell().Element(CellStyle).Text("Materiais Utilizados:").Bold();
-                        });
-
                         col.Item().Table(table =>
                         {
                             table.ColumnsDefinition(columns =>
@@ -218,17 +212,15 @@ namespace DiarioObras.Infra
                         });
                     }
 
-                    // SEÇÃO 6: REGISTRO FOTOGRÁFICO - VERSÃO ATUALIZADA
+                    // SEÇÃO 6: REGISTRO FOTOGRÁFICO
                     AddSectionHeader(col, "6. REGISTRO FOTOGRÁFICO");
 
                     if (Model.Fotos != null && Model.Fotos.Any())
                     {
-                        // Calcular quantas linhas serão necessárias (3 fotos por linha)
                         int rowsNeeded = (int)Math.Ceiling(Model.Fotos.Count / 3.0);
 
                         col.Item().Table(table =>
                         {
-                            // Definir 3 colunas de largura igual
                             table.ColumnsDefinition(columns =>
                             {
                                 columns.RelativeColumn();
@@ -238,7 +230,6 @@ namespace DiarioObras.Infra
 
                             for (int row = 0; row < rowsNeeded; row++)
                             {
-                                // Adicionar uma linha para cada conjunto de 3 fotos
                                 table.Cell().Row((uint)row + 1).Column(1).Element(c => AddFotoElement(c, Model.Fotos.ElementAtOrDefault(row * 3)));
                                 table.Cell().Row((uint)row + 1).Column(2).Element(c => AddFotoElement(c, Model.Fotos.ElementAtOrDefault(row * 3 + 1)));
                                 table.Cell().Row((uint)row + 1).Column(3).Element(c => AddFotoElement(c, Model.Fotos.ElementAtOrDefault(row * 3 + 2)));
@@ -254,7 +245,7 @@ namespace DiarioObras.Infra
                         });
                     }
 
-                    // SEÇÃO 7: CONTROLE E ASSINATURAS
+                    // SEÇÃO 7: CONTROLE
                     AddSectionHeader(col, "7. CONTROLE");
 
                     col.Item().Table(table =>
@@ -283,8 +274,6 @@ namespace DiarioObras.Infra
                         });
                     }
 
-                    // ... (código anterior permanece igual)
-
                     // SEÇÃO 8: ASSINATURAS
                     AddSectionHeader(col, "8. ASSINATURAS");
 
@@ -296,7 +285,6 @@ namespace DiarioObras.Infra
                             columns.RelativeColumn();
                         });
 
-                        // Assinatura do Engenheiro/Responsável
                         table.Cell().Column(column =>
                         {
                             column.Item().AlignCenter().Text("Responsável").Bold();
@@ -305,7 +293,6 @@ namespace DiarioObras.Infra
                             column.Item().AlignCenter().Text("CREA: _______________");
                         });
 
-                        // Assinatura do Contratante
                         table.Cell().Column(column =>
                         {
                             column.Item().AlignCenter().Text("Contratante").Bold();
@@ -314,14 +301,8 @@ namespace DiarioObras.Infra
                             column.Item().AlignCenter().Text("CPF/CNPJ: _______________");
                         });
                     });
-
-                    // ... (rodapé permanece o mesmo)
-
                 });
 
-
-
-                // Rodapé
                 page.Footer().AlignCenter().Text(x =>
                 {
                     x.Span("Página ").FontSize(7);
@@ -366,13 +347,11 @@ namespace DiarioObras.Infra
 
         private byte[] LoadImage(string imagePath)
         {
-            // Se o caminho for uma URL ou caminho absoluto/relativo do sistema de arquivos
             if (File.Exists(imagePath))
             {
                 return File.ReadAllBytes(imagePath);
             }
 
-            // Se o caminho for uma URI (http/https)
             if (Uri.TryCreate(imagePath, UriKind.Absolute, out var uri) &&
                 (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps))
             {
@@ -380,7 +359,6 @@ namespace DiarioObras.Infra
                 return httpClient.GetByteArrayAsync(uri).Result;
             }
 
-            // Se o caminho for um base64 string (data:image)
             if (imagePath.StartsWith("data:image"))
             {
                 var base64Data = imagePath.Split(',')[1];
@@ -393,9 +371,7 @@ namespace DiarioObras.Infra
         private void AddFotoElement(IContainer container, FotoRegistro? foto)
         {
             if (foto == null)
-            {
-                return; // Não faz nada se não houver foto para esta posição
-            }
+                return;
 
             container.Padding(5).MinHeight(180).Column(column =>
             {
@@ -412,16 +388,11 @@ namespace DiarioObras.Infra
                         .AlignCenter().Text("Imagem não disponível").Italic();
                 }
 
-                // Legenda
                 if (!string.IsNullOrWhiteSpace(foto.Descricao))
-                {
                     column.Item().PaddingTop(5).Text(foto.Descricao).FontSize(7);
-                }
 
                 if (!string.IsNullOrWhiteSpace(foto.Categoria))
-                {
-                    column.Item().Text($"Categoria: {foto.Categoria}").FontSize(6).Italic();
-                }
+                    column.Item().Text($"Categoria: {foto.Categoria}").FontSize(7).Italic();
             });
         }
     }

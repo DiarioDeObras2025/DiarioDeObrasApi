@@ -20,6 +20,12 @@ namespace DiarioObras.AutoMapper.RegistroDiarioMapping
             // Mapeamento de MaterialUtilizadoDTO para MaterialUtilizado
             CreateMap<MembroEquipeDTO, MembroEquipe>();
 
+            // Mapeamento de MaterialUtilizado para MaterialUtilizadoDTO
+            CreateMap<AtividadeRegistro, AtividadeRegistroDTO>();
+
+            // Mapeamento de MaterialUtilizadoDTO para MaterialUtilizado
+            CreateMap<AtividadeRegistroDTO, AtividadeRegistro>();
+
             CreateMap<RegistroDiario, RegistroDiarioResumoDTO>()
              .ForMember(dest => dest.NomeObra, opt => opt.MapFrom(src => src.Obra.Nome));
 
@@ -27,6 +33,7 @@ namespace DiarioObras.AutoMapper.RegistroDiarioMapping
             // Entidade → DTO
             CreateMap<RegistroDiario, RegistroDiarioDTO>()
                  .ForMember(dest => dest.Equipe, opt => opt.MapFrom(src => src.Equipe))
+                 .ForMember(dest => dest.Atividades, opt => opt.MapFrom(src => src.Atividades))
                 .ForMember(dest => dest.Materiais, opt => opt.MapFrom(src =>
                     src.Materiais != null
                         ? src.Materiais.Select(m => new MaterialUtilizadoDTO
@@ -41,6 +48,7 @@ namespace DiarioObras.AutoMapper.RegistroDiarioMapping
             // DTO → Entidade
             CreateMap<RegistroDiarioDTO, RegistroDiario>()
                 .ForMember(dest => dest.Equipe, opt => opt.MapFrom(src => src.Equipe))
+                .ForMember(dest => dest.Atividades, opt => opt.MapFrom(src => src.Atividades))
                 .ForMember(dest => dest.Materiais, opt => opt.MapFrom(src =>
                     src.Materiais != null
                         ? src.Materiais.Select(m => new MaterialUtilizado

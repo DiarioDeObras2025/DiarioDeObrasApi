@@ -12,15 +12,14 @@ public class RegistroDiarioDTO
     [Required(ErrorMessage = "Houve um erro interno, contate o suporte!")]
     public int ObraId { get; set; }
 
-    [Required(ErrorMessage = "O resumo é um campo obrigatório")]
-    public string Resumo { get; set; }
-
     [Required(ErrorMessage = "O título do relatório é um campo obrigatório")]
     public string Titulo { get; set; }
 
     public CondicaoClimaticaEnum CondicoesClimaticas { get; set; }
 
     public List<MembroEquipeDTO>? Equipe { get; set; }
+
+    public List<AtividadeRegistroDTO>? Atividades { get; set; }
 
     public int HorasTrabalhadas { get; set; } = 8;
 

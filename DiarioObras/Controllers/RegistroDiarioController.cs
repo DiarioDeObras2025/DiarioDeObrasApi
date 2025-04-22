@@ -13,7 +13,7 @@ using QuestPDF.Fluent;
 
 namespace DiarioObras.Controllers;
 
-[Authorize]
+//[Authorize]
 [Route("[controller]")]
 [ApiController]
 public class RegistroDiarioController : ControllerBase
@@ -160,10 +160,8 @@ public class RegistroDiarioController : ControllerBase
             Data = DateTime.UtcNow,
             Titulo = registroOriginal.Titulo,
             ObraId = registroOriginal.ObraId,
-            Resumo = registroOriginal.Resumo,
             CondicoesClimaticas = registroOriginal.CondicoesClimaticas,
             HorasTrabalhadas = registroOriginal.HorasTrabalhadas,
-            Equipamentos = registroOriginal.Equipamentos,
             ConsumoCimento = registroOriginal.ConsumoCimento,
             Etapa = registroOriginal.Etapa,
             PercentualConcluido = registroOriginal.PercentualConcluido,
@@ -175,7 +173,8 @@ public class RegistroDiarioController : ControllerBase
             DataAssinatura = null,
             DataCriacao = DateTime.UtcNow,
             Equipe = new List<MembroEquipe>(),
-            Materiais = new List<MaterialUtilizado>()
+            Materiais = new List<MaterialUtilizado>(),
+            Atividades = new List<AtividadeRegistro>()
         };
 
         // Duplicar Equipe
@@ -189,6 +188,27 @@ public class RegistroDiarioController : ControllerBase
                 Terceirizado = membro.Terceirizado,
             });
         }
+
+        // Duplicar Atividades
+        foreach (var atividades in registroOriginal.Atividades)
+        {
+            registroCopia.Atividades.Add(new AtividadeRegistro
+            {
+                Descricao = atividades.Descricao
+            });
+        }
+
+        foreach (var membro in registroOriginal.Equipe)
+        {
+            registroCopia.Equipe.Add(new MembroEquipe
+            {
+                Nome = membro.Nome,
+                Cargo = membro.Cargo,
+                Observacao = membro.Observacao,
+                Terceirizado = membro.Terceirizado,
+            });
+        }
+
 
         // Duplicar Materiais
         foreach (var mat in registroOriginal.Materiais)
@@ -208,11 +228,9 @@ public class RegistroDiarioController : ControllerBase
         {
             Id = registroCopia.Id,
             Titulo = registroCopia.Titulo,
-            Resumo = registroCopia.Resumo,
             Data = registroCopia.Data,
             ObraId = registroCopia.ObraId,
             HorasTrabalhadas = registroCopia.HorasTrabalhadas,
-            Equipamentos = registroCopia.Equipamentos,
             ConsumoCimento = registroCopia.ConsumoCimento,
             Etapa = registroCopia.Etapa,
             PercentualConcluido = registroCopia.PercentualConcluido,
