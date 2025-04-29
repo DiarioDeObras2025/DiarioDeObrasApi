@@ -73,12 +73,7 @@ namespace DiarioObras.Infra
                         });
 
                         AddTableRow(table, "Título", Model.Titulo);
-                        AddTableRow(table, "Etapa Atual", GetEtapaDisplayName(Model.Etapa));
-                        AddTableRow(table, "% Concluído", $"{Model.PercentualConcluido}%");
-                        AddTableRow(table, "Área Executada", $"{Model.AreaExecutada} m²");
                         AddTableRow(table, "Cond. Climáticas", Model.CondicoesClimaticas.ToString());
-                        AddTableRow(table, "Temperatura", Model.Temperatura.HasValue ? $"{Model.Temperatura}°C" : "N/A");
-                        AddTableRow(table, "Precipitação", Model.Precipitacao.HasValue ? $"{Model.Precipitacao} mm" : "N/A");
                     });
 
                     // SEÇÃO 3: ATIVIDADES
@@ -147,7 +142,7 @@ namespace DiarioObras.Infra
 
                             table.Header(header =>
                             {
-                                header.Cell().Element(CellStyle).Text("Total Funcionários").Bold();
+                                header.Cell().Element(CellStyle).Text("Total Funcionários próprio").Bold();
                                 header.Cell().Element(CellStyle).Text("Total Terceirizados").Bold();
                             });
 
@@ -162,16 +157,6 @@ namespace DiarioObras.Infra
 
                     // SEÇÃO 4: MATERIAIS E EQUIPAMENTOS
                     AddSectionHeader(col, "4. MATERIAIS E EQUIPAMENTOS");
-
-                    if (Model.ConsumoCimento > 0)
-                    {
-                        col.Item().Table(table =>
-                        {
-                            table.ColumnsDefinition(columns => columns.RelativeColumn());
-                            table.Cell().Element(CellStyle).Text("Consumo de Cimento:").Bold();
-                            table.Cell().Element(CellStyle).Text($"{Model.ConsumoCimento} sacos");
-                        });
-                    }
 
                     if (Model.Materiais.Any())
                     {
@@ -260,19 +245,19 @@ namespace DiarioObras.Infra
                         AddTableRow(table, "Última Atualização", Model.Obra?.DataAtualizacao?.ToString("dd/MM/yyyy HH:mm") ?? "N/A");
                     });
 
-                    if (!string.IsNullOrWhiteSpace(Model.AssinaturaResponsavel))
-                    {
-                        col.Item().Table(table =>
-                        {
-                            table.ColumnsDefinition(columns => columns.RelativeColumn());
+                    //if (!string.IsNullOrWhiteSpace(Model.AssinaturaResponsavel))
+                    //{
+                    //    col.Item().Table(table =>
+                    //    {
+                    //        table.ColumnsDefinition(columns => columns.RelativeColumn());
 
-                            table.Cell().Element(CellStyle).PaddingTop(10).Text("Responsável:").Bold();
-                            table.Cell().Element(CellStyle).PaddingTop(15).AlignCenter().Text(Model.AssinaturaResponsavel);
-                            table.Cell().Element(CellStyle).AlignCenter().PaddingBottom(5).BorderBottom(1).BorderColor(Colors.Black);
-                            table.Cell().Element(CellStyle).AlignCenter().Text("Assinatura do Engenheiro Responsável");
-                            table.Cell().Element(CellStyle).AlignCenter().Text(Model.DataAssinatura?.ToString("dd/MM/yyyy") ?? "");
-                        });
-                    }
+                    //        table.Cell().Element(CellStyle).PaddingTop(10).Text("Responsável:").Bold();
+                    //        table.Cell().Element(CellStyle).PaddingTop(15).AlignCenter().Text(Model.AssinaturaResponsavel);
+                    //        table.Cell().Element(CellStyle).AlignCenter().PaddingBottom(5).BorderBottom(1).BorderColor(Colors.Black);
+                    //        table.Cell().Element(CellStyle).AlignCenter().Text("Assinatura do Engenheiro Responsável");
+                    //        table.Cell().Element(CellStyle).AlignCenter().Text(Model.DataAssinatura?.ToString("dd/MM/yyyy") ?? "");
+                    //    });
+                    //}
 
                     // SEÇÃO 8: ASSINATURAS
                     AddSectionHeader(col, "8. ASSINATURAS");
@@ -334,15 +319,6 @@ namespace DiarioObras.Infra
                 .BorderColor(Colors.Grey.Lighten2)
                 .PaddingVertical(3)
                 .PaddingHorizontal(5);
-        }
-
-        private string GetEtapaDisplayName(EtapaObraEnum etapa)
-        {
-            var fieldInfo = etapa.GetType().GetField(etapa.ToString());
-            var attribute = fieldInfo?.GetCustomAttributes(typeof(DisplayAttribute), false)
-                           .FirstOrDefault() as DisplayAttribute;
-
-            return attribute?.Name ?? etapa.ToString();
         }
 
         private byte[] LoadImage(string imagePath)

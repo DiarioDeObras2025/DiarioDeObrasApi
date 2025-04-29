@@ -27,9 +27,7 @@ public class ObraController : ControllerBase
     public async Task<ActionResult<IEnumerable<ObraDTO>>> GetAll()
     {
         var empresaId = User.GetEmpresaId();
-        var obras = await _uof.ObraRepository.GetAllAsync(
-            o => o.EmpresaId == empresaId,
-            o => o.RegistrosDiarios);
+        var obras = await _uof.ObraRepository.GetAllByEmpresaOrderedAsync(empresaId);
 
         if (obras is null)
             return NotFound("Obras não encontradas!");

@@ -17,6 +17,9 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration
+    .AddEnvironmentVariables();
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
         options.JsonSerializerOptions
@@ -67,7 +70,12 @@ builder.Services.AddDependencyInjection();
 builder.Services.AddAutoMapperConfig();
 
 
-var secretKey = builder.Configuration["JWT:SecretKey"] ?? throw new ArgumentException("Invalido secreti key");
+//var secretKey = builder.Configuration["JWT:SecretKey"] ?? throw new ArgumentException("Invalido secreti key");
+
+var secretKey = builder.Configuration["JWT:SecretKey"];
+if (string.IsNullOrEmpty(secretKey))
+    throw new ArgumentException("SecretKey JWT inválida ou não configurada");
+
 
 builder.Services.AddAuthentication(options =>
 {
@@ -125,11 +133,16 @@ builder.Services.AddScoped<S3Service>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+        c.RoutePrefix = "swagger";  // Rota para acessar o Swagger (pode ser vazia para deixar na raiz)
+    });
 }
+
 
 app.UseHttpsRedirection();
 

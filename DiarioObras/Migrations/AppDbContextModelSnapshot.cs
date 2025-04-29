@@ -330,50 +330,20 @@ namespace DiarioObras.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<decimal>("AreaExecutada")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("AssinaturaResponsavel")
-                        .HasColumnType("longtext");
-
                     b.Property<int>("CondicoesClimaticas")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ConsumoCimento")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime?>("DataAssinatura")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Equipamentos")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Etapa")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HorasTrabalhadas")
-                        .HasColumnType("int");
 
                     b.Property<int>("ObraId")
                         .HasColumnType("int");
 
                     b.Property<string>("Ocorrencias")
                         .HasColumnType("longtext");
-
-                    b.Property<int>("PercentualConcluido")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("Precipitacao")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<decimal?>("Temperatura")
-                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("Titulo")
                         .IsRequired()

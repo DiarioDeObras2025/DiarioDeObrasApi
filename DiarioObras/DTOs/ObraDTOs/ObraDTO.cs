@@ -25,7 +25,7 @@ public class ObraDTO
     public DateTime DataInicio { get; set; }
     public DateTime? DataTerminoPrevista { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "O campo Engenheiro responsável é obrigatório.")]
     [StringLength(80)]
     public string? EngenheiroResponsavel { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DiarioObras.DTOs.FotoRegistroDTOs;
 using DiarioObras.DTOs.RegistroDiarioDTOs;
 using DiarioObras.Models;
 
@@ -29,11 +30,15 @@ namespace DiarioObras.AutoMapper.RegistroDiarioMapping
             CreateMap<RegistroDiario, RegistroDiarioResumoDTO>()
              .ForMember(dest => dest.NomeObra, opt => opt.MapFrom(src => src.Obra.Nome));
 
+            CreateMap<FotoRegistro, FotoRegistroMetadataDto>();
+            CreateMap<FotoRegistroMetadataDto, FotoRegistro>();
+
 
             // Entidade → DTO
             CreateMap<RegistroDiario, RegistroDiarioDTO>()
                  .ForMember(dest => dest.Equipe, opt => opt.MapFrom(src => src.Equipe))
                  .ForMember(dest => dest.Atividades, opt => opt.MapFrom(src => src.Atividades))
+                 .ForMember(dest => dest.Fotos, opt => opt.MapFrom(src => src.Fotos))
                 .ForMember(dest => dest.Materiais, opt => opt.MapFrom(src =>
                     src.Materiais != null
                         ? src.Materiais.Select(m => new MaterialUtilizadoDTO
@@ -49,6 +54,7 @@ namespace DiarioObras.AutoMapper.RegistroDiarioMapping
             CreateMap<RegistroDiarioDTO, RegistroDiario>()
                 .ForMember(dest => dest.Equipe, opt => opt.MapFrom(src => src.Equipe))
                 .ForMember(dest => dest.Atividades, opt => opt.MapFrom(src => src.Atividades))
+                .ForMember(dest => dest.Fotos, opt => opt.MapFrom(src => src.Fotos))
                 .ForMember(dest => dest.Materiais, opt => opt.MapFrom(src =>
                     src.Materiais != null
                         ? src.Materiais.Select(m => new MaterialUtilizado

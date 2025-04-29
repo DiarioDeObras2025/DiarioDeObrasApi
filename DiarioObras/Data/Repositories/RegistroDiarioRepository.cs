@@ -19,7 +19,16 @@ public class RegistroDiarioRepository : Repository<RegistroDiario>, IRegistroDia
             .Include(f => f.Atividades)
             .FirstOrDefault(x => x.ObraId == idObra && x.Id == idRegistroDiario);
     }
-
+    public override async Task<RegistroDiario?> GetByIdAsync(Expression<Func<RegistroDiario, bool>> predicate)
+    {
+        return await _context.Set<RegistroDiario>()
+            .Include(x => x.Obra)
+            .Include(x => x.Materiais)
+            .Include(x => x.Equipe)
+            .Include(x => x.Fotos)
+            .Include(x => x.Atividades)
+            .FirstOrDefaultAsync(predicate);
+    }
     public async Task<int> getTotalRelatorioAsync(Expression<Func<RegistroDiario, bool>> predicate)
     {
         return await _context.Set<RegistroDiario>().CountAsync(predicate);

@@ -24,39 +24,19 @@ public class RegistroDiario
 
     public int ObraId { get; set; }
     public Obra? Obra { get; set; }
-    //public string Resumo { get; set; }
 
     public ICollection<AtividadeRegistro> Atividades { get; set; }
 
     public CondicaoClimaticaEnum CondicoesClimaticas { get; set; }
 
-    // Equipe
     public ICollection<MembroEquipe> Equipe { get; set; }
-    public int HorasTrabalhadas { get; set; } = 8; // Valor padrão
-
-    public int ConsumoCimento { get; set; }
     public ICollection<MaterialUtilizado> Materiais { get; set; }
 
-    // Progresso
-    public EtapaObraEnum Etapa { get; set; }
-    public int PercentualConcluido { get; set; }
-
-    [Range(0, double.MaxValue)]
-    [Column(TypeName = "decimal(18,2)")]
-    public decimal AreaExecutada { get; set; }
-
-    // Ocorrências e Ambiente
     public string? Ocorrencias { get; set; }
-    public decimal? Temperatura { get; set; }
-    public decimal? Precipitacao { get; set; }
 
-    // Anexos
     public ICollection<FotoRegistro> Fotos { get; set; }
     public ICollection<DocumentoRegistro> Documentos { get; set; } = new Collection<DocumentoRegistro>();
 
-    // Controle
-    public string? AssinaturaResponsavel { get; set; }
-    public DateTime? DataAssinatura { get; set; }
     public DateTime DataCriacao { get; set; } = DateTime.UtcNow;
 }
 
@@ -70,22 +50,4 @@ public enum CondicaoClimaticaEnum
     Tempestade,
     Ventania,
     Granizo
-}
-
-public enum EtapaObraEnum
-{
-    [Display(Name = "Preparação do terreno")]
-    PreparacaoTerreno,
-    [Display(Name = "Fundação")]
-    Fundacao,
-    [Display(Name = "Estrutura")]
-    Estrutura,
-    [Display(Name = "Alvenaria")]
-    Alvenaria,
-    [Display(Name = "Instalações")]
-    Instalacoes,
-    [Display(Name = "Cobertura")]
-    Cobertura,
-    [Display(Name = "Acabamento")]
-    Acabamento
 }

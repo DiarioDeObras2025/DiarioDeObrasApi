@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DiarioObras.DTOs.FotoRegistroDTOs;
 using DiarioObras.Models;
 
 namespace DiarioObras.DTOs.RegistroDiarioDTOs;
@@ -21,46 +22,11 @@ public class RegistroDiarioDTO
 
     public List<AtividadeRegistroDTO>? Atividades { get; set; }
 
-    public int HorasTrabalhadas { get; set; } = 8;
-
-    // Materiais e Equipamentos
-    public string? Equipamentos { get; set; }
-
-    [Range(0, 1000, ErrorMessage = "O consumo de cimento deve ser entre 0 e 1000 sacos")]
-    public int ConsumoCimento { get; set; }
-
     public List<MaterialUtilizadoDTO>? Materiais { get; set; } // Alterado para List<MaterialUtilizadoDTO>
-
-    // Progresso
-    public EtapaObraEnum Etapa { get; set; }
-
-    [Range(0, 100, ErrorMessage = "O percentual concluído deve ser entre 0% e 100%")]
-    public int PercentualConcluido { get; set; }
-
-    [Range(0, double.MaxValue, ErrorMessage = "A área executada deve ser um valor positivo")]
-    public decimal AreaExecutada { get; set; }
 
     // Ocorrências e Ambiente
     public string? Ocorrencias { get; set; }
 
-    [Range(-50, 50, ErrorMessage = "A temperatura deve estar entre -50°C e 50°C")]
-    public decimal? Temperatura { get; set; }
-
-    [Range(0, 500, ErrorMessage = "A precipitação deve ser entre 0mm e 500mm")]
-    public decimal? Precipitacao { get; set; }
-
-    // Anexos (para upload)
-    //public List<IFormFile>? Fotos { get; set; }
-    //public List<IFormFile>? Documentos { get; set; }
-
-    // Assinatura
-    public string? AssinaturaResponsavel { get; set; }
-    public DateTime? DataAssinatura { get; set; }
-}
-
-public class RegistroDiarioResponseDTO : RegistroDiarioDTO
-{
-    public List<string>? UrlsFotos { get; set; }
-    public List<string>? UrlsDocumentos { get; set; }
-    public DateTime DataCriacao { get; set; }
+    public List<FotoRegistroMetadataDto>? Fotos { get; set; }
+    //public List<string>? UrlsDocumentos { get; set; }
 }

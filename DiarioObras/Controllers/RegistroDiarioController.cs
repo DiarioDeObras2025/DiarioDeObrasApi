@@ -46,8 +46,7 @@ public class RegistroDiarioController : ControllerBase
     {
         var empresaId = User.GetEmpresaId();
 
-        var registros = await _uof.RegistroDiarioRepository.GetAllWithObraByEmpresaAsync(empresaId); // Supondo que você ajustou esse método pra versão async
-
+        var registros = await _uof.RegistroDiarioRepository.GetAllWithObraByEmpresaAsync(empresaId); 
         if (registros == null)
             return NotFound("Obras não encontradas!");
 
@@ -161,16 +160,7 @@ public class RegistroDiarioController : ControllerBase
             Titulo = registroOriginal.Titulo,
             ObraId = registroOriginal.ObraId,
             CondicoesClimaticas = registroOriginal.CondicoesClimaticas,
-            HorasTrabalhadas = registroOriginal.HorasTrabalhadas,
-            ConsumoCimento = registroOriginal.ConsumoCimento,
-            Etapa = registroOriginal.Etapa,
-            PercentualConcluido = registroOriginal.PercentualConcluido,
-            AreaExecutada = registroOriginal.AreaExecutada,
             Ocorrencias = registroOriginal.Ocorrencias,
-            Temperatura = registroOriginal.Temperatura,
-            Precipitacao = registroOriginal.Precipitacao,
-            AssinaturaResponsavel = null,
-            DataAssinatura = null,
             DataCriacao = DateTime.UtcNow,
             Equipe = new List<MembroEquipe>(),
             Materiais = new List<MaterialUtilizado>(),
@@ -198,18 +188,6 @@ public class RegistroDiarioController : ControllerBase
             });
         }
 
-        foreach (var membro in registroOriginal.Equipe)
-        {
-            registroCopia.Equipe.Add(new MembroEquipe
-            {
-                Nome = membro.Nome,
-                Cargo = membro.Cargo,
-                Observacao = membro.Observacao,
-                Terceirizado = membro.Terceirizado,
-            });
-        }
-
-
         // Duplicar Materiais
         foreach (var mat in registroOriginal.Materiais)
         {
@@ -230,14 +208,7 @@ public class RegistroDiarioController : ControllerBase
             Titulo = registroCopia.Titulo,
             Data = registroCopia.Data,
             ObraId = registroCopia.ObraId,
-            HorasTrabalhadas = registroCopia.HorasTrabalhadas,
-            ConsumoCimento = registroCopia.ConsumoCimento,
-            Etapa = registroCopia.Etapa,
-            PercentualConcluido = registroCopia.PercentualConcluido,
-            AreaExecutada = registroCopia.AreaExecutada,
             Ocorrencias = registroCopia.Ocorrencias,
-            Temperatura = registroCopia.Temperatura,
-            Precipitacao = registroCopia.Precipitacao,
             Equipe = registroCopia.Equipe.Select(e => new MembroEquipeDTO
             {
                 Nome = e.Nome,
