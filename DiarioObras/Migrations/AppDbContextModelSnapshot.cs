@@ -79,6 +79,9 @@ namespace DiarioObras.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<DateTime?>("UltimoAcesso")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -115,6 +118,36 @@ namespace DiarioObras.Migrations
                     b.HasIndex("RegistroDiarioId");
 
                     b.ToTable("AtividadeRegistro");
+                });
+
+            modelBuilder.Entity("DiarioObras.Models.CustoObra", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Categoria")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("ObraId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ObraId");
+
+                    b.ToTable("CustoObra");
                 });
 
             modelBuilder.Entity("DiarioObras.Models.DocumentoRegistro", b =>
@@ -161,11 +194,7 @@ namespace DiarioObras.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("Responsavel")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Telefone")
+                    b.Property<string>("Segmento")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -508,6 +537,17 @@ namespace DiarioObras.Migrations
                         .IsRequired();
 
                     b.Navigation("RegistroDiario");
+                });
+
+            modelBuilder.Entity("DiarioObras.Models.CustoObra", b =>
+                {
+                    b.HasOne("DiarioObras.Models.Obra", "Obra")
+                        .WithMany()
+                        .HasForeignKey("ObraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Obra");
                 });
 
             modelBuilder.Entity("DiarioObras.Models.DocumentoRegistro", b =>

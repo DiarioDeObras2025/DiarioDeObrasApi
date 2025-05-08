@@ -17,6 +17,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Empresa>? Empresas { get; set; }
     public DbSet<MaterialUtilizado>? MaterialUtilizados { get; set; }
     public DbSet<DocumentoRegistro>? DocumentoRegistros { get; set; }
+    public DbSet<CustoObra>? CustoObra { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

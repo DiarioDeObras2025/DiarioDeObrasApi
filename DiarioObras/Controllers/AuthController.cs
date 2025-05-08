@@ -2,7 +2,9 @@
 using DiarioObras.Data.Context;
 using DiarioObras.Data.Interfaces;
 using DiarioObras.DTOs.LoginDTOs;
+using DiarioObras.DTOs.Users;
 using DiarioObras.Models;
+using DiarioObras.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -25,6 +27,7 @@ namespace DiarioObras.Controllers
         private readonly ILogger<AuthController> _logger;
         private readonly IUnitOfWork _uof;
         private readonly AppDbContext _context;
+        private readonly EmailService _emailService;
 
 
         public AuthController(ITokenService tokenService,
@@ -33,7 +36,8 @@ namespace DiarioObras.Controllers
                               IConfiguration configuration,
                               ILogger<AuthController> logger,
                               IUnitOfWork uof,
-                              AppDbContext context)
+                              AppDbContext context,
+                              EmailService emailService)
         {
             _tokenService = tokenService;
             _userManager = userManager;
@@ -42,6 +46,7 @@ namespace DiarioObras.Controllers
             _logger = logger;
             _uof = uof;
             _context = context;
+            _emailService = emailService;
         }
 
         [HttpPost]
@@ -81,6 +86,8 @@ namespace DiarioObras.Controllers
 
                 user.RefreshToken = refreshToken;
 
+                user.UltimoAcesso = DateTime.UtcNow;
+
                 await _userManager.UpdateAsync(user);
 
                 return Ok(new
@@ -89,7 +96,7 @@ namespace DiarioObras.Controllers
                     RefreshToken = refreshToken,
                     Expiration = token.ValidTo,
                     NomeUser = user.Nome,
-                    Email = user.Email
+                    Email = user.Email,
                 });
             }
             return Unauthorized();
@@ -286,6 +293,154 @@ namespace DiarioObras.Controllers
             }
             return BadRequest(new { error = "Unable to find user" });
         }
+        [Authorize]
+        [HttpPost("cadastrar-usuario")]
+        public async Task<IActionResult> CadastrarUsuario([FromBody] RegisterModelDTO model)
+        {
+            var empresaId = int.Parse(User.FindFirst("empresaId")!.Value);
+
+            var userExists = await _userManager.FindByEmailAsync(model.Email);
+            if (userExists != null)
+                return BadRequest(new { Message = "E-mail já está em uso" });
+
+            var user = new ApplicationUser
+            {
+                Email = model.Email,
+                UserName = model.Email,
+                Nome = model.UserName,
+                EmpresaId = empresaId,
+                PhoneNumber = model.PhoneNumber,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+                return BadRequest(new
+                {
+                    Message = "Falha ao criar usuário",
+                    Errors = result.Errors.Select(e => e.Description)
+                });
+
+            return Ok(new { Message = "Usuário criado com sucesso" });
+        }
+
+        [Authorize]
+        [HttpGet("get-users")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var empresaId = int.Parse(User.FindFirst("empresaId")!.Value);
+
+            var usuarios = await _userManager.Users
+                .Where(u => u.EmpresaId == empresaId)
+                .Select(u => new
+                {
+                    u.Id,
+                    u.Nome,
+                    u.Email,
+                    u.PhoneNumber
+                })
+                .ToListAsync();
+
+            return Ok(usuarios);
+        }
+
+
+        [Authorize]
+        [HttpPut("atualizar-usuario/{id}")]
+        public async Task<IActionResult> AtualizarUsuario(string id, [FromBody] AtualizarUsuarioDTO model)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+                return NotFound(new { Message = "Usuário não encontrado" });
+
+            user.Nome = model.Nome;
+            user.Email = model.Email;
+            user.UserName = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+
+            var updateResult = await _userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded)
+            {
+                return BadRequest(new
+                {
+                    Message = "Erro ao atualizar usuário",
+                    Errors = updateResult.Errors.Select(e => e.Description)
+                });
+            }
+
+            if (!string.IsNullOrEmpty(model.Senha))
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var passwordResult = await _userManager.ResetPasswordAsync(user, token, model.Senha);
+                if (!passwordResult.Succeeded)
+                {
+                    return BadRequest(new
+                    {
+                        Message = "Erro ao atualizar senha",
+                        Errors = passwordResult.Errors.Select(e => e.Description)
+                    });
+                }
+            }
+
+            return Ok(new { Message = "Usuário atualizado com sucesso" });
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDTO model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return BadRequest(new { Message = "Usuário não encontrado" });
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var resetLink = $"{_configuration["AppSettings:FrontendUrl"]}/reset-password?email={user.Email}&token={Uri.EscapeDataString(token)}";
+
+
+            await _emailService.EnviarResetSenhaAsync(user.Email, resetLink);
+
+            return Ok(new { Message = "Link de redefinição enviado para o e-mail." });
+        }
+
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return BadRequest(new { Message = "Usuário não encontrado" });
+
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
+
+            if (!result.Succeeded)
+                return BadRequest(new
+                {
+                    Message = "Erro ao redefinir senha",
+                    Errors = result.Errors.Select(e => e.Description)
+                });
+
+            return Ok(new { Message = "Senha redefinida com sucesso." });
+        }
+
+
+        [HttpGet("usuarios-online")]
+        public async Task<IActionResult> GetUsuariosOnline()
+        {
+            var cincoMinutosAtras = DateTime.UtcNow.AddMinutes(-30);
+
+            var usuarios = await _userManager.Users
+                .Where(u => u.UltimoAcesso >= cincoMinutosAtras)
+                .Select(u => new
+                {
+                    u.Email,
+                    u.Nome,
+                    u.UltimoAcesso
+                })
+                .ToListAsync();
+
+            return Ok(usuarios);
+        }
+
+
 
     }
 }

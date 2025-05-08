@@ -130,6 +130,9 @@ builder.Services.AddCors(options =>
 builder.Services.Configure<AwsS3Settings>(builder.Configuration.GetSection("AWS"));
 builder.Services.AddScoped<S3Service>();
 
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient<EmailService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -22,6 +22,43 @@
   },
   {
     "ContainingType": "DiarioObras.Controllers.AuthController",
+    "Method": "AtualizarUsuario",
+    "RelativePath": "Auth/atualizar-usuario/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "DiarioObras.DTOs.Users.AtualizarUsuarioDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.AuthController",
+    "Method": "CadastrarUsuario",
+    "RelativePath": "Auth/cadastrar-usuario",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DiarioObras.DTOs.LoginDTOs.RegisterModelDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.AuthController",
     "Method": "CreateRole",
     "RelativePath": "Auth/CreateRole",
     "HttpMethod": "POST",
@@ -34,6 +71,32 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.AuthController",
+    "Method": "ForgotPassword",
+    "RelativePath": "Auth/forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DiarioObras.DTOs.LoginDTOs.ForgotPasswordDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.AuthController",
+    "Method": "GetUsers",
+    "RelativePath": "Auth/get-users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -91,6 +154,22 @@
   },
   {
     "ContainingType": "DiarioObras.Controllers.AuthController",
+    "Method": "ResetPassword",
+    "RelativePath": "Auth/reset-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DiarioObras.DTOs.LoginDTOs.ResetPasswordDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.AuthController",
     "Method": "Revoke",
     "RelativePath": "Auth/revoke/{username}",
     "HttpMethod": "POST",
@@ -100,6 +179,101 @@
       {
         "Name": "username",
         "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.AuthController",
+    "Method": "GetUsuariosOnline",
+    "RelativePath": "Auth/usuarios-online",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.CustoObraController",
+    "Method": "CriarCusto",
+    "RelativePath": "CustoObra",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "DiarioObras.DTOs.Financeiro.CustoObraDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.CustoObraController",
+    "Method": "RemoverCusto",
+    "RelativePath": "CustoObra/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.CustoObraController",
+    "Method": "AtualizarCusto",
+    "RelativePath": "CustoObra/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "DiarioObras.DTOs.Financeiro.CustoObraDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.CustoObraController",
+    "Method": "GerarRelatorioPdf",
+    "RelativePath": "CustoObra/financeiro/obra/{idObra}/pdf",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idObra",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.CustoObraController",
+    "Method": "ListarCustosPorObra",
+    "RelativePath": "CustoObra/obra/{obraId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "obraId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -116,6 +290,22 @@
       {
         "Name": "empresaDto",
         "Type": "DiarioObras.DTOs.EmpresaDTOs.CreateEmpresaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DiarioObras.Controllers.EmpresaController",
+    "Method": "RegistrarComEmpresaEUsuario",
+    "RelativePath": "Empresa/registrar-completo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "DiarioObras.DTOs.EmpreDTOs.RegistroCompletoDto",
         "IsRequired": true
       }
     ],

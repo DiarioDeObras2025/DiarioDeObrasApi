@@ -16,5 +16,5 @@ public class RegisterModelDTO
 
     [Phone]
     [Required(ErrorMessage = "Telefone é obrigatório")]
-    public string? PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
 }

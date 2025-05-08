@@ -1,5 +1,6 @@
 ﻿using DiarioObras.Data.Context;
 using DiarioObras.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DiarioObras.Data.Repositories;
 
@@ -9,7 +10,9 @@ public class UnitOfWork : IUnitOfWork
     private IRegistroDiarioRepository? _registroDiarioRepository;
     private IEmpresaRepository? _empresaRepository;
     private IFotoRegistroRepository? _fotoRegistroRepository;
+    private ICustoObraRepository? _custoObraRepository;
     public AppDbContext _context;
+    public DbContext Context => _context;
 
     public UnitOfWork(AppDbContext context)
     {
@@ -47,6 +50,13 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
+    public ICustoObraRepository CustoObraRepository
+    {
+        get
+        {
+            return _custoObraRepository = _custoObraRepository ?? new CustoObraRepository(_context);
+        }
+    }
     public void Commit()
     {
         _context.SaveChanges();
