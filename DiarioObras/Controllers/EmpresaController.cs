@@ -22,6 +22,10 @@ namespace DiarioObras.Controllers
         private readonly ITokenService _tokenService;
         private readonly IConfiguration _configuration;
         private readonly UserManager<ApplicationUser> _userManager;
+        private IUnitOfWork object1;
+        private ITokenService object2;
+        private IMapper object3;
+        private IConfiguration object4;
 
         public EmpresaController(IUnitOfWork uof, IMapper mapper, ITokenService tokenService, IConfiguration configuration, UserManager<ApplicationUser> userManager)
         {
@@ -40,7 +44,6 @@ namespace DiarioObras.Controllers
 
             try
             {
-                // 1. Cria a empresa
                 var novaEmpresa = new Empresa
                 {
                     Nome = dto.NomeEmpresa,
@@ -51,7 +54,6 @@ namespace DiarioObras.Controllers
                 novaEmpresa = await _uof.EmpresaRepository.CreateAsync(novaEmpresa);
                 await _uof.CommitAsync();
 
-                // 2. Cria o usuário associado
                 var novoUsuario = new ApplicationUser
                 {
                     Nome = dto.NomeUsuario,
@@ -68,7 +70,6 @@ namespace DiarioObras.Controllers
                     return BadRequest(new { Message = "Erro ao criar usuário", Erros = result.Errors });
                 }
 
-                // 3. Gera token
                 var claims = new List<Claim>
         {
             new Claim("empresaId", novaEmpresa.Id.ToString()),
@@ -103,17 +104,14 @@ namespace DiarioObras.Controllers
 
             try
             {
-                // Mapeia o DTO para a entidade Empresa
                 var novaEmpresa = _mapper.Map<Empresa>(empresaDto);
 
-                // Chama o repositório para criar a nova empresa de forma assíncrona
                 novaEmpresa = await _uof.EmpresaRepository.CreateAsync(novaEmpresa);
                 await _uof.CommitAsync();
 
-                // Criação do token para a empresa registrada
                 var authClaims = new List<Claim>
                 {
-                    new Claim("empresaId", novaEmpresa.Id.ToString()), // Id é int
+                    new Claim("empresaId", novaEmpresa.Id.ToString()), 
                     new Claim("purpose", "user_registration"),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };

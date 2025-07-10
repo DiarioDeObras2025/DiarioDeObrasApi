@@ -3,7 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiarioObras", "DiarioObras\DiarioObras.csproj", "{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiarioObras", "DiarioObras\DiarioObras.csproj", "{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{C1D1EEA5-20AC-4062-BD88-3588DA9EB1E2}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiarioObras.Tests", "DiarioObras.Tests\DiarioObras.Tests.csproj", "{930FEE38-AF21-46EC-B3BC-6887B286006F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +22,10 @@ Global
 		{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{930FEE38-AF21-46EC-B3BC-6887B286006F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{930FEE38-AF21-46EC-B3BC-6887B286006F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{930FEE38-AF21-46EC-B3BC-6887B286006F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{930FEE38-AF21-46EC-B3BC-6887B286006F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

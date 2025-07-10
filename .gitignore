@@ -1,0 +1,91 @@
+## Build results
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+*.log
+
+## User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+## Visual Studio Code
+.vscode/
+
+## Rider
+.idea/
+*.sln.iml
+
+## .NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.mdb
+*.xml
+*.db
+*.sqlite
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## Entity Framework
+*.aps
+*.designer.cs
+Migrations/
+
+## Paket
+.paket/
+paket-files/
+
+## dotCover
+.idea/.dotCover
+
+## Azure
+*.PublishSettings
+*.azurePubxml
+*.azurePubxml.user
+
+## Others
+_ReSharper*/
+*.ncrunch*
+*.DS_Store
+*.orig
+*.sdf
+*.dbmdl
+*.bak
+
+# NPM
+node_modules/
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Logs
+*.log
+
+# Test results
+TestResults/
+*.coverage
+*.coveragexml
+*.testresults
+*.trx
+
+# Local config
+appsettings.*.local.json
+appsettings.json
+
+# OS junk
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# JetBrains Rider
+.idea/

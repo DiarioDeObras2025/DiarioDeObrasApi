@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DiarioObras")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48183213c16e408768738c316366eb58cc209896")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+edb23d59d23cef22200c2617bd5c60a9c5a0e7c0")]
 [assembly: System.Reflection.AssemblyProductAttribute("DiarioObras")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DiarioObras")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

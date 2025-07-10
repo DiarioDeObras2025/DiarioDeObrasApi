@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|c:\\users\\user\\desktop\\diario de obras\\diarioobras\\diarioobras\\diarioobras\\infra\\registrodiariodertaisreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|solutionrelative:diarioobras\\infra\\registrodiariodertaisreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{930FEE38-AF21-46EC-B3BC-6887B286006F}|DiarioObras.Tests\\DiarioObras.Tests.csproj|c:\\users\\user\\desktop\\diario de obras\\diarioobras\\diarioobras\\diarioobras.tests\\controllers\\empresacontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{930FEE38-AF21-46EC-B3BC-6887B286006F}|DiarioObras.Tests\\DiarioObras.Tests.csproj|solutionrelative:diarioobras.tests\\controllers\\empresacontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|c:\\users\\user\\desktop\\diario de obras\\diarioobras\\diarioobras\\diarioobras\\data\\repositories\\registrodiariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|solutionrelative:diarioobras\\data\\repositories\\registrodiariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|c:\\users\\user\\desktop\\diario de obras\\diarioobras\\diarioobras\\diarioobras\\controllers\\empresacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|solutionrelative:diarioobras\\controllers\\empresacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|c:\\users\\user\\desktop\\diario de obras\\diarioobras\\diarioobras\\diarioobras\\controllers\\registrodiariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|solutionrelative:diarioobras\\controllers\\registrodiariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|c:\\users\\user\\desktop\\diario de obras\\diarioobras\\diarioobras\\diarioobras\\data\\interfaces\\iregistrodiariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F5DA0ED-3C64-4FF4-A8DA-5AA98B321ED8}|DiarioObras\\DiarioObras.csproj|solutionrelative:diarioobras\\data\\interfaces\\iregistrodiariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{930FEE38-AF21-46EC-B3BC-6887B286006F}|DiarioObras.Tests\\DiarioObras.Tests.csproj|c:\\users\\user\\desktop\\diario de obras\\diarioobras\\diarioobras\\diarioobras.tests\\diarioobras.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{930FEE38-AF21-46EC-B3BC-6887B286006F}|DiarioObras.Tests\\DiarioObras.Tests.csproj|solutionrelative:diarioobras.tests\\diarioobras.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,52 +38,42 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RegistroDiarioRepository.cs",
-              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Data\\Repositories\\RegistroDiarioRepository.cs",
-              "RelativeDocumentMoniker": "DiarioObras\\Data\\Repositories\\RegistroDiarioRepository.cs",
-              "ToolTip": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Data\\Repositories\\RegistroDiarioRepository.cs",
-              "RelativeToolTip": "DiarioObras\\Data\\Repositories\\RegistroDiarioRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T16:37:15.598Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IRegistroDiarioRepository.cs",
-              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Data\\Interfaces\\IRegistroDiarioRepository.cs",
-              "RelativeDocumentMoniker": "DiarioObras\\Data\\Interfaces\\IRegistroDiarioRepository.cs",
-              "ToolTip": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Data\\Interfaces\\IRegistroDiarioRepository.cs",
-              "RelativeToolTip": "DiarioObras\\Data\\Interfaces\\IRegistroDiarioRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T16:35:17.591Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RegistroDiarioDertaisReport.cs",
-              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Infra\\RegistroDiarioDertaisReport.cs",
-              "RelativeDocumentMoniker": "DiarioObras\\Infra\\RegistroDiarioDertaisReport.cs",
-              "ToolTip": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Infra\\RegistroDiarioDertaisReport.cs",
-              "RelativeToolTip": "DiarioObras\\Infra\\RegistroDiarioDertaisReport.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAAAGkAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-11T19:28:39.359Z",
+              "DocumentIndex": 2,
+              "Title": "DiarioObras.Tests",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras.Tests\\DiarioObras.Tests.csproj",
+              "RelativeDocumentMoniker": "DiarioObras.Tests\\DiarioObras.Tests.csproj",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras.Tests\\DiarioObras.Tests.csproj",
+              "RelativeToolTip": "DiarioObras.Tests\\DiarioObras.Tests.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-10T13:16:32.205Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RegistroDiarioController.cs",
-              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Controllers\\RegistroDiarioController.cs",
-              "RelativeDocumentMoniker": "DiarioObras\\Controllers\\RegistroDiarioController.cs",
-              "ToolTip": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Controllers\\RegistroDiarioController.cs",
-              "RelativeToolTip": "DiarioObras\\Controllers\\RegistroDiarioController.cs",
-              "ViewState": "AgIAAF8AAAAAAAAAAAAYwG4AAAAFAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "EmpresaControllerTests.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras.Tests\\Controllers\\EmpresaControllerTests.cs",
+              "RelativeDocumentMoniker": "DiarioObras.Tests\\Controllers\\EmpresaControllerTests.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras.Tests\\Controllers\\EmpresaControllerTests.cs",
+              "RelativeToolTip": "DiarioObras.Tests\\Controllers\\EmpresaControllerTests.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-11T18:17:51.424Z"
+              "WhenOpened": "2025-07-10T13:15:53.476Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EmpresaController.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Controllers\\EmpresaController.cs",
+              "RelativeDocumentMoniker": "DiarioObras\\Controllers\\EmpresaController.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\Diario de Obras\\diarioObras\\DiarioObras\\DiarioObras\\Controllers\\EmpresaController.cs",
+              "RelativeToolTip": "DiarioObras\\Controllers\\EmpresaController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAkwCEAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T13:10:38.707Z",
+              "EditorCaption": ""
             }
           ]
         }
